@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const quoteBlock = document.getElementById('quote');
+
     const getQuoteButton = document.getElementById('newQuote');
     const addFavoriteButton = document.getElementById('addToFavorite');
     const favoritesList = document.getElementById('favorites_list');
     const noQuotesMessage = document.getElementById('noQuotesMessage');
+    const quoteBlock = document.getElementById('quoteBlock'); // Define the quoteBlock element
 
     let currentQuote = '';
     let currentAuthor = '';
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             noQuotesMessage.style.display = 'none';
             favorites.forEach((favorite, index) => {
                 const li = document.createElement('li');
-                li.textContent = `"${favorite.content}" - ${favorite.author}`;
+                li.textContent = `"${decodeURIComponent(favorite.content)}" - ${decodeURIComponent(favorite.author)}`;
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Удалить';
                 deleteButton.classList.add('bg-red-500', 'text-white', 'px-2', 'py-1', 'rounded', 'ml-2', 'hover:bg-red-700');
@@ -48,19 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchQuote = async () => {
         try {
             const response = await fetch('https://api.quotable.io/random');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
             const data = await response.json();
             currentQuote = data.content;
             currentAuthor = data.author;
             quoteBlock.innerHTML = `<p class="text-lg italic">"${currentQuote}"</p><p class="text-right mt-2">- ${currentAuthor}</p>`;
         } catch (error) {
             console.error('Error fetching quote:', error);
+            quoteBlock.innerHTML = '<p class="text-lg italic">Failed to fetch quote. Please try again later.</p>';
         }
     };
 
     // Добавление текущей цитаты в избранное
     const addFavorite = () => {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favorites.push({ content: currentQuote, author: currentAuthor });
+        favorites.push({ content: encodeURIComponent(currentQuote), author: encodeURIComponent(currentAuthor) });
         saveFavorites(favorites);
         loadFavorites();
     };
