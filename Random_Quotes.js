@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             noQuotesMessage.style.display = 'none';
             favorites.forEach((favorite, index) => {
                 const li = document.createElement('li');
+                // Раскодирование перед выводом
                 li.textContent = `"${decodeURIComponent(favorite.content)}" - ${decodeURIComponent(favorite.author)}`;
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Удалить';
@@ -55,16 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             currentQuote = data.content;
             currentAuthor = data.author;
+            // Обновление интерфейса с цитатой
             quoteBlock.innerHTML = `<p class="text-lg italic">"${currentQuote}"</p><p class="text-right mt-2">- ${currentAuthor}</p>`;
+            // Скрыть сообщение об отсутствии цитат
+            noQuotesMessage.style.display = 'none';
         } catch (error) {
             console.error('Error fetching quote:', error);
-            quoteBlock.innerHTML = '<p class="text-lg italic">Failed to fetch quote. Please try again later.</p>';
+            quoteBlock.innerHTML = '<p class="text-lg italic">Не удалось загрузить цитату. Попробуйте позже.</p>';
         }
     };
 
     // Добавление текущей цитаты в избранное
     const addFavorite = () => {
+        if (!currentQuote || !currentAuthor) {
+            alert('Сначала получите цитату!');
+            return;
+        }
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        // Кодирование перед добавлением
         favorites.push({ content: encodeURIComponent(currentQuote), author: encodeURIComponent(currentAuthor) });
         saveFavorites(favorites);
         loadFavorites();
