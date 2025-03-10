@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes</title>
+    <link rel="stylesheet" href="style/output.css">
+</head>
+
+<body>
+    <!-- Основной контейнер для приложения случайных цитат -->
+    <div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+        <!-- Контейнер для отображения случайной цитаты -->
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-4">Случайная цитата</h1>
+            <div id="quote" class="mb-4">
+                <!-- <p class="text-lg italic">"Единственное ограничение нашего завтрашнего воплощения - это наши сегодняшние
+                    сомнения."</p>
+                <p class="text-right mt-2">- Франклин Д. Рузвельт</p> -->
+            </div>
+
+            <!-- Кнопка для получения новой случайной цитаты -->
+            <button id="newQuote" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Получить
+                цитату</button>
+            <!-- Кнопка для добавления текущей цитаты в избранное -->
+            <button id="addToFavorite" class="bg-green-500 text-white px-4 py-2 rounded mt-2 hover:bg-green-700">Добавить
+                в избранное</button>
+        </div>
+
+        <!-- Контейнер для отображения списка избранных цитат -->
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-6">
+            <h2 class="text-xl font-bold mb-4">Избранные цитаты</h2>
+            <ul id="favorites_list" class="list-disc pl-5">
+            </ul>
+
+            <!-- Сообщение, если нет цытат -->
+        <p id="noQuotesMessage" class="text-center text-gray-500">Нет добавленных цытат</p>
+    </div>
+        </div>
+    </div>
+
+    <script src="Random_Quotes.js"></script>
+</body>
+</html>
+
+<!-- 
+// <li class="mb-2 flex justify-between items-center">
+    //     <span>"Лучший способ предсказать будущее - это изобрести его." - Алан Кей</span>
+    //     <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">Удалить</button>
+    // </li> -->
