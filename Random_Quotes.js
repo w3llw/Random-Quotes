@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Получение случайной цитаты из API Quotable
     const fetchQuote = async () => {
         try {
-            const response = await fetch('https://api.quotable.io/random');
+            const response = await fetch('http://api.quotable.io/random');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
