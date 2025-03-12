@@ -19,11 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
             noQuotesMessage.style.display = 'none';
             favorites.forEach((favorite, index) => {
                 const li = document.createElement('li');
+                li.classList.add('p-4', 'mb-4', 'bg-white', 'shadow-md', 'rounded', 'border', 'border-gray-200');
+                li.style.listStyle = 'none'; // Убираем точки перед li
                 // Раскодирование перед выводом
-                li.textContent = `"${decodeURIComponent(favorite.content)}" - ${decodeURIComponent(favorite.author)}`;
+                li.innerHTML = `<p class="text-lg italic">"${decodeURIComponent(favorite.content)}"</p><p class="text-right mt-2">- ${decodeURIComponent(favorite.author)}</p>`;
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Удалить';
-                deleteButton.classList.add('bg-red-500', 'text-white', 'px-2', 'py-1', 'rounded', 'ml-2', 'hover:bg-red-700');
+                deleteButton.classList.add('bg-red-500', 'text-white', 'px-2', 'py-1', 'rounded', 'mt-2', 'hover:bg-red-700');
                 deleteButton.addEventListener('click', () => {
                     removeFavorite(index);
                 });
